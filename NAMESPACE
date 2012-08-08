@@ -1,4 +1,4 @@
 export(
-	"dps_init","student_sgp","teacher_covars","teacher_estimates","teacher_mgp"
+	"student_sgp","teacher_covars","teacher_estimates","teacher_mgp"
 )
 
