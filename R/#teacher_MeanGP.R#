@@ -16,7 +16,7 @@ teacher_MeanGP<-function(stud, #this is meant to be applied to a list where data
       for (i in 1:bootstrap.N) {
         sample(1:N,N,replace=TRUE)->index
         tmp[index,]->tmp.boot
-        weighted.mean(tmp.boot$GrowthPercentile,wt=wt)->boot[i]
+        if (all(wt==1)) mean(tmp.boot$GrowthPercentile)->boot[i] else weighted.mean(tmp.boot$GrowthPercentile,wt=wt)->boot[i]
       }
       quantile(boot,c(.025,.975))->boot.ci
       c(mgp,boot.ci)->tr
