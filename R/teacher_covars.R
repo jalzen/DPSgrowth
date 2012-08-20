@@ -49,15 +49,13 @@ teacher_covars<-function(stud #student level data
   sapply(classes,class.size)->class.size
   data.frame(TeacherID=tch.ids,class.size=class.size)->covars$class.size
   ## ## 7) "churn rate" of students in class [defined as 1 - proportion of students associated with a teacher in a year that were in the class the entire year]
-  ## #dat[dat$OutcomeYear==outcome.year & dat$GRADE==outcome.grade,]->tmp
-  ## subset(x,select=c("TeacherID","StudentID"))->tmp
-  ## churn[churn$OutcomeYear==outcome.year,]->churn
-  ## merge(tmp,churn,by.x="StudentID",by.y="studentNumber")->churn
-  ## churn[!duplicated(churn),]->churn
-  ## aggregate(churn$stable.student,list(churn$TeacherID),function(x) sum(x,na.rm=TRUE)/sum(!is.na(x)))->churn
-  ## names(churn)<-c("TeacherID","churn")
-  ## 1-churn$churn->churn$churn
-  ## churn->covars$churn
+  churn<-function(x) mean(1-x$stable.student,na.rm=TRUE)
+  sapply(classes,churn)->churn
+  data.frame(TeacherID=tch.ids,churn=churn)->covars$churn
+  #8.5
+  attendance<-function(x) mean(x$Avg.Attendance,na.rm=TRUE)
+  sapply(classes,attendance)->attendance
+  data.frame(TeacherID=tch.ids,attendance=attendance)->covars$attendance
   ## 8) Novice teacher indicator (<4 years experience)
   novice<-function(x) {
     x$TOTAL_TEACHING_EXPERIENCE->tmp
