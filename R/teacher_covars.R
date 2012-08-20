@@ -1,14 +1,10 @@
 
-teacher_covars<-function(stud, #student level data
-                         outcome.grade,
-                         outcome.year,
-                         churn #churn data
+teacher_covars<-function(stud #student level data
                          ) {
   #get rid of bad data
   stud[!is.na(stud$TeacherID),]->stud
   #
   covars<-list()
-  stud[stud$OutcomeYear==outcome.year & stud$GRADE==outcome.grade,]->x
   split(x,x$TeacherID)->classes
   names(classes)->tch.ids
   ## 1) average of students' prior grade achievement in same subject
@@ -52,16 +48,16 @@ teacher_covars<-function(stud, #student level data
   class.size<-function(x) nrow(x)
   sapply(classes,class.size)->class.size
   data.frame(TeacherID=tch.ids,class.size=class.size)->covars$class.size
-  ## 7) "churn rate" of students in class [defined as 1 - proportion of students associated with a teacher in a year that were in the class the entire year]
-  #dat[dat$OutcomeYear==outcome.year & dat$GRADE==outcome.grade,]->tmp
-  subset(x,select=c("TeacherID","StudentID"))->tmp
-  churn[churn$OutcomeYear==outcome.year,]->churn
-  merge(tmp,churn,by.x="StudentID",by.y="studentNumber")->churn
-  churn[!duplicated(churn),]->churn
-  aggregate(churn$stable.student,list(churn$TeacherID),function(x) sum(x,na.rm=TRUE)/sum(!is.na(x)))->churn
-  names(churn)<-c("TeacherID","churn")
-  1-churn$churn->churn$churn
-  churn->covars$churn
+  ## ## 7) "churn rate" of students in class [defined as 1 - proportion of students associated with a teacher in a year that were in the class the entire year]
+  ## #dat[dat$OutcomeYear==outcome.year & dat$GRADE==outcome.grade,]->tmp
+  ## subset(x,select=c("TeacherID","StudentID"))->tmp
+  ## churn[churn$OutcomeYear==outcome.year,]->churn
+  ## merge(tmp,churn,by.x="StudentID",by.y="studentNumber")->churn
+  ## churn[!duplicated(churn),]->churn
+  ## aggregate(churn$stable.student,list(churn$TeacherID),function(x) sum(x,na.rm=TRUE)/sum(!is.na(x)))->churn
+  ## names(churn)<-c("TeacherID","churn")
+  ## 1-churn$churn->churn$churn
+  ## churn->covars$churn
   ## 8) Novice teacher indicator (<4 years experience)
   novice<-function(x) {
     x$TOTAL_TEACHING_EXPERIENCE->tmp
@@ -74,11 +70,7 @@ teacher_covars<-function(stud, #student level data
   novice[!is.finite(novice)]<-NA
   data.frame(TeacherID=tch.ids,novice=novice)->covars$novice
   #
-  list.merge<-function(L,by="Group.1") {
-    L[[1]]->out
-    for (i in 2:length(L)) merge(out,L[[i]],by=by,all=TRUE)->out
-    out
-  }
-  list.merge(covars,by="TeacherID")->covars
-  covars
+  covars[[1]]->out
+  for (i in 2:length(covars)) merge(out,covars[[i]],by="TeacherID",all=TRUE)->out
+  out
 }

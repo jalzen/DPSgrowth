@@ -20,8 +20,8 @@ teacher_MeanGP<-function(stud, #this is meant to be applied to a list where data
       }
       quantile(boot,c(.025,.975))->boot.ci
       c(mgp,boot.ci)->tr
-    }
+    } else mgp->tr
   }
   tr
 }
-  
+
