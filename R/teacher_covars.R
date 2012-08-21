@@ -1,11 +1,12 @@
 
-teacher_covars<-function(stud #student level data
+teacher_covars<-function(stud, #student level data
+                         TeacherID="TeacherID"
                          ) {
   #get rid of bad data
-  stud[!is.na(stud$TeacherID),]->stud
+  stud[!is.na(stud[[TeacherID]]),]->stud
   #
   covars<-list()
-  split(x,x$TeacherID)->classes
+  split(x,x[[TeacherID]])->classes
   names(classes)->tch.ids
   ## 1) average of students' prior grade achievement in same subject
   prior.score.mean<-function(x,prior) {
