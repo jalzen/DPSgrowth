@@ -48,10 +48,10 @@ teacher_covars<-function(stud #student level data
   class.size<-function(x) nrow(x)
   sapply(classes,class.size)->class.size
   data.frame(TeacherID=tch.ids,class.size=class.size)->covars$class.size
-  ## ## 7) "churn rate" of students in class [defined as 1 - proportion of students associated with a teacher in a year that were in the class the entire year]
-  churn<-function(x) mean(1-x$stable.student,na.rm=TRUE)
-  sapply(classes,churn)->churn
-  data.frame(TeacherID=tch.ids,churn=churn)->covars$churn
+  ## ## ## 7) "churn rate" of students in class [defined as 1 - proportion of students associated with a teacher in a year that were in the class the entire year]
+  ## churn<-function(x) mean(1-x$stable.student,na.rm=TRUE)
+  ## sapply(classes,churn)->churn
+  ## data.frame(TeacherID=tch.ids,churn=churn)->covars$churn
   #8.5
   attendance<-function(x) mean(x$Avg.Attendance,na.rm=TRUE)
   sapply(classes,attendance)->attendance
