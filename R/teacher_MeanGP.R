@@ -3,7 +3,7 @@ teacher_MeanGP<-function(stud, #this is meant to be applied to a list where data
                          bootstrap.N=NULL,
                          wt=NULL
                       ) {
-  if (is.null(bootstrap.N)) NA->tr else rep(NA,3)->tr
+  if (is.null(bootstrap.N)) NA->tr else rep(NA,5)->tr
   if (is.null(wt)) rep(1,nrow(stud))->wt
   #mgp
   stud[!is.na(stud$GrowthPercentile),]->stud
@@ -18,7 +18,7 @@ teacher_MeanGP<-function(stud, #this is meant to be applied to a list where data
         tmp[index,]->tmp.boot
         if (all(wt==1)) mean(tmp.boot$GrowthPercentile)->boot[i] else weighted.mean(tmp.boot$GrowthPercentile,wt=wt)->boot[i]
       }
-      quantile(boot,c(.025,.975))->boot.ci
+      quantile(boot,c(.025,.975,.16,.84))->boot.ci
       c(mgp,boot.ci)->tr
     } else mgp->tr
   }
