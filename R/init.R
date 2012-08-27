@@ -10,10 +10,10 @@
            setwd("~/dps/data")
          },
          derekbriggs={
-           setwd("Dropbox/DPS VAM/project/data")
+           setwd("~/Dropbox/DPS VAM/project/data")
          },
          briggsd={
-           setwd("Dropbox/DPS VAM/project/data")
+           setwd("~/Dropbox/DPS VAM/project/data")
          })
 }
            
