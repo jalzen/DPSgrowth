@@ -9,6 +9,9 @@
          domingue={
            setwd("~/dps/data")
          },
+         damian={
+           setwd("/home/damian/Documents/Research/SGP/2012/DPS_VAM")
+         },
          derekbriggs={
            setwd("~/Dropbox/DPS VAM/project/data")
          },
