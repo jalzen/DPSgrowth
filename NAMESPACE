@@ -3,5 +3,6 @@ export(
 	"teacher_covars",
 	"teacher_estimates",
 	"teacher_MeanGP"
+	"get_AE"
 )
 
