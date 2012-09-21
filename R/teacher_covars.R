@@ -15,6 +15,12 @@ teacher_covars<-function(stud, #student level data
   }
   sapply(classes,prior.score.mean)->prior.scores
   data.frame(TeacherID=tch.ids,prior.mean=prior.scores)->covars$prior.mean
+  prior.score.sd<-function(x,prior) {
+    x$ScaleScore.prior->prior
+    sd(prior,na.rm=TRUE)
+  }
+  sapply(classes,prior.score.sd)->prior.scores
+  data.frame(TeacherID=tch.ids,prior.sd=prior.scores)->covars$prior.sd
   ## 2) FRL% (which I would really like to replace with a much better SES indicator as noted in my writeup)
   frl.mean<-function(x) {
     x$FRL->frl
@@ -56,7 +62,10 @@ teacher_covars<-function(stud, #student level data
   #8.5
   attendance<-function(x) mean(x$Avg.Attendance,na.rm=TRUE)
   sapply(classes,attendance)->attendance
-  data.frame(TeacherID=tch.ids,attendance=attendance)->covars$attendance
+  data.frame(TeacherID=tch.ids,Avg.Attendance=attendance)->covars$Avg.Attendance
+  enrollment<-function(x) mean(x$Enrollment,na.rm=TRUE)
+  sapply(classes,enrollment)->enrollment
+  data.frame(TeacherID=tch.ids,Enrollment=enrollment)->covars$Enrollment
   ## 8) Novice teacher indicator (<4 years experience)
   novice<-function(x) {
     x$TOTAL_TEACHING_EXPERIENCE->tmp
