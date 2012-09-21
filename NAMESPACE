@@ -2,7 +2,7 @@ export(
 	"student_sgp",
 	"teacher_covars",
 	"teacher_estimates",
-	"teacher_MeanGP"
+	"teacher_MeanGP",
 	"get_AE"
 )
 
