@@ -2,21 +2,23 @@
 teacher_covars<-function(stud, #student level data
                          TeacherID="TeacherID"
                          ) {
+  toupper(names(stud))->names(stud)
+  toupper(TeacherID)->TeacherID
   #get rid of bad data
   stud[!is.na(stud[[TeacherID]]),]->stud
   #
   covars<-list()
-  split(x,x[[TeacherID]])->classes
+  split(stud,stud[[TeacherID]])->classes
   names(classes)->tch.ids
   ## 1) average of students' prior grade achievement in same subject
   prior.score.mean<-function(x,prior) {
-    x$ScaleScore.prior->prior
+    x$SCALESCORE.PRIOR->prior
     mean(prior,na.rm=TRUE)
   }
   sapply(classes,prior.score.mean)->prior.scores
   data.frame(TeacherID=tch.ids,prior.mean=prior.scores)->covars$prior.mean
   prior.score.sd<-function(x,prior) {
-    x$ScaleScore.prior->prior
+    x$SCALESCORE.PRIOR->prior
     sd(prior,na.rm=TRUE)
   }
   sapply(classes,prior.score.sd)->prior.scores
@@ -30,12 +32,12 @@ teacher_covars<-function(stud, #student level data
   sapply(classes,frl.mean)->frl
   data.frame(TeacherID=tch.ids,frl=frl)->covars$frl
   ## 3) SPED% and/or SCD% [not the same thing]
-  iep.mean<-function(x) {
-    x$ON_IEP==1 & x$GT==0->iep
-    mean(iep,na.rm=TRUE)
-  }
-  sapply(classes,iep.mean)->iep
-  data.frame(TeacherID=tch.ids,iep=iep)->covars$iep
+  ## iep.mean<-function(x) {
+  ##   x$ON_IEP==1 & x$GT==0->iep
+  ##   mean(iep,na.rm=TRUE)
+  ## }
+  ## sapply(classes,iep.mean)->iep
+  ## data.frame(TeacherID=tch.ids,iep=iep)->covars$iep
   ## 4) ELL%
   ell.mean<-function(x) {
     x$ELL->ell
@@ -60,10 +62,10 @@ teacher_covars<-function(stud, #student level data
   ## sapply(classes,churn)->churn
   ## data.frame(TeacherID=tch.ids,churn=churn)->covars$churn
   #8.5
-  attendance<-function(x) mean(x$Avg.Attendance,na.rm=TRUE)
+  attendance<-function(x) mean(x$AVG.ATTENDANCE,na.rm=TRUE)
   sapply(classes,attendance)->attendance
   data.frame(TeacherID=tch.ids,Avg.Attendance=attendance)->covars$Avg.Attendance
-  enrollment<-function(x) mean(x$Enrollment,na.rm=TRUE)
+  enrollment<-function(x) mean(x$ENROLLMENT,na.rm=TRUE)
   sapply(classes,enrollment)->enrollment
   data.frame(TeacherID=tch.ids,Enrollment=enrollment)->covars$Enrollment
   ## 8) Novice teacher indicator (<4 years experience)
@@ -80,5 +82,7 @@ teacher_covars<-function(stud, #student level data
   #
   covars[[1]]->out
   for (i in 2:length(covars)) merge(out,covars[[i]],by="TeacherID",all=TRUE)->out
+  grep("TeacherID",names(out))->index
+  names(out)[index]<-TeacherID
   out
 }
