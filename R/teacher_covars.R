@@ -32,13 +32,13 @@ teacher_covars<-function(stud, #student level data
   sapply(classes,frl.mean)->frl
   data.frame(TeacherID=tch.ids,frl=frl)->covars$frl
   ## 3) SPED% and/or SCD% [not the same thing]
-  ## iep.mean<-function(x) {
-  ##   x$ON_IEP==1 & x$GT==0->iep
-  ##   mean(iep,na.rm=TRUE)
-  ## }
-  ## sapply(classes,iep.mean)->iep
-  ## data.frame(TeacherID=tch.ids,iep=iep)->covars$iep
-  ## 4) ELL%
+  iep.mean<-function(x) {
+    x$SPED==1 & x$GT==0->iep
+    mean(iep,na.rm=TRUE)
+  }
+  sapply(classes,iep.mean)->iep
+  data.frame(TeacherID=tch.ids,iep=iep)->covars$iep
+  #4) ELL%
   ell.mean<-function(x) {
     x$ELL->ell
     mean(ell,na.rm=TRUE)
