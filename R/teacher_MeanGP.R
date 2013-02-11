@@ -1,10 +1,12 @@
 teacher_MeanGP<-function(stud, #this is meant to be applied to a list where data is split by teacher.
                          N=15,
                          bootstrap.N=NULL,
-                         wt=NULL
+                         wt=NULL,
+                         sgp.col.name="GrowthPercentile"
                       ) {
   if (is.null(bootstrap.N)) NA->tr else rep(NA,5)->tr
   if (is.null(wt)) rep(1,nrow(stud))->wt
+  stud[[sgp.col.name]]->stud$GrowthPercentile
   #mgp
   stud[!is.na(stud$GrowthPercentile),]->stud
   if (nrow(stud)>=N) {
