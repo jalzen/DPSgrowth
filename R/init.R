@@ -15,6 +15,9 @@
          derekbriggs={
            setwd("~/Dropbox/DPS VAM/project/data")
          },
+	Jessica={
+	  setwd("C:/Users/Jessica/Dropbox/Derek/DPS VAM/project/data/")
+	},
          briggsd={
            setwd("~/Dropbox/DPS VAM/project/data")
          })
