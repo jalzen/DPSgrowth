@@ -2,24 +2,25 @@
   #this function basically just sets the working directory to the DPS_VAM data directory and other things.
   Sys.getenv("USER")->user
   message("Switching working directory to data directory...")
-  switch(user,
-         bd={
-           setwd("~/Dropbox/DPS_VAM/project/data")
-         },
-         domingue={
-           setwd("~/dps/data")
-         },
-         damian={
-           setwd("/home/damian/Documents/Research/SGP/2012/DPS_VAM")
-         },
-         derekbriggs={
-           setwd("~/Dropbox/DPS VAM/project/data")
-         },
-	Jessica={
-	  setwd("C:/Users/Jessica/Dropbox/Derek/DPS VAM/project/data/")
-	},
-         briggsd={
-           setwd("~/Dropbox/DPS VAM/project/data")
-         })
+  if (user!="") {
+    switch(user,
+           bd={
+             setwd("~/Dropbox/DPS_VAM/project/data")
+           },
+           domingue={
+             setwd("~/dps/data")
+           },
+           damian={
+             setwd("/home/damian/Documents/Research/SGP/2012/DPS_VAM")
+           },
+           derekbriggs={
+             setwd("~/Dropbox/DPS VAM/project/data")
+           },
+           briggsd={
+             setwd("~/Dropbox/DPS VAM/project/data")
+           })
+  } else { #let's just hope this is jessica's windows machine.
+    setwd("C:/Users/Jessica/Dropbox/Derek/DPS VAM/project/data/")
+  }
 }
            
