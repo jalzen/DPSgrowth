@@ -5,22 +5,22 @@
   if (user!="") {
     switch(user,
            bd={
-             setwd("~/Dropbox/DPS_VAM/project/data")
+             setwd("~/Dropbox/DPSvam/int/data")
            },
            domingue={
              setwd("~/dps/data")
            },
-           damian={
-             setwd("/home/damian/Documents/Research/SGP/2012/DPS_VAM")
-           },
+           ## damian={
+           ##   setwd("/home/damian/Documents/Research/SGP/2012/DPS_VAM")
+           ## },
            derekbriggs={
-             setwd("~/Dropbox/DPS VAM/project/data")
+             setwd("~/Dropbox/DPSvam/int/data")
            },
            briggsd={
-             setwd("~/Dropbox/DPS VAM/project/data")
+             setwd("~/Dropbox/DPSvam/int/data")
            })
   } else { #let's just hope this is jessica's windows machine.
-    setwd("C:/Users/Jessica/Dropbox/Derek/DPS VAM/project/data/")
+    setwd("C:/Users/Jessica/Dropbox/Derek/DPSvam/int/data/")
   }
 }
            
