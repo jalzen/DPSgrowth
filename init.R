@@ -20,7 +20,7 @@
              setwd("~/Dropbox/DPSvam/int/data")
            })
   } else { #let's just hope this is jessica's windows machine.
-    setwd("C:/Users/jeal5954/Dropbox/Derek/DPSvam/int/data/")
+    setwd("C:/Users/Jessica/Dropbox/Derek/DPSvam/int/data/")
   }
 }
            
